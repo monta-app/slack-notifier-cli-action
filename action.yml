@@ -16,6 +16,10 @@ inputs:
   slack-message-id:
     description: "Which message channel should this be published to"
     required: false
+outputs:
+  slack-message-id:
+    description: "Slack message id that was published"
+    value: ${{ steps.slack-notifier.outputs.SLACK_MESSAGE_ID }}
 runs:
   using: "composite"
   steps:
@@ -28,7 +32,8 @@ runs:
         curl -L -o slack-notifier-cli https://github.com/monta-app/slack-notifier-cli/releases/download/v1.0.0/slack-notifier-cli
         chmod +x ./slack-notifier-cli
       shell: bash
-    - name: Run changelog cli
+    - name: Run slack notifier cli
+      id: slack-notifier
       env:
         PUBLISH_SLACK_STATUS: ${{ inputs.status }}
         PUBLISH_SLACK_TITLE: ${{ inputs.title }}
