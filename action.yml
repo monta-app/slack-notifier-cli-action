@@ -1,20 +1,23 @@
 name: "Slack Notifier CLI"
 description: "Create a change log based of git commit history"
 inputs:
-  status:
-    description: "Github Action Status"
+  github-context:
+    description: ""
     required: true
-  title:
-    description: "Title of the status update"
+  job-type:
+    description: ""
     required: true
-  slack-token:
-    description: "Slack App API Token used for publishing changelog"
+  job-status:
+    description: ""
+    required: true
+  slack-app-token:
+    description: ""
     required: true
   slack-channel-id:
-    description: "Which slack channel should this be published to"
+    description: ""
     required: true
   slack-message-id:
-    description: "Which message channel should this be published to"
+    description: ""
     required: false
 outputs:
   slack-message-id:
@@ -29,15 +32,16 @@ runs:
         fetch-depth: 0
     - name: Download changelog cli
       run: |
-        curl -L -o slack-notifier-cli https://github.com/monta-app/slack-notifier-cli/releases/download/v1.0.1/slack-notifier-cli
+        curl -L -o slack-notifier-cli https://github.com/monta-app/slack-notifier-cli/releases/download/v1.0.2/slack-notifier-cli
         chmod +x ./slack-notifier-cli
       shell: bash
     - name: Run slack notifier cli
       id: slack-notifier
       env:
-        PUBLISH_SLACK_STATUS: ${{ inputs.status }}
-        PUBLISH_SLACK_TITLE: ${{ inputs.title }}
-        SLACK_TOKEN: ${{ inputs.slack-token }}
+        PUBLISH_SLACK_GITHUB_CONTEXT: ${{ inputs.github-context }}
+        PUBLISH_SLACK_JOB_TYPE: ${{ inputs.job-type }}
+        PUBLISH_SLACK_JOB_STATUS: ${{ inputs.job-status }}
+        SLACK_APP_TOKEN: ${{ inputs.slack-app-token }}
         SLACK_CHANNEL_ID: ${{ inputs.slack-channel-id }}
         SLACK_MESSAGE_ID: ${{ inputs.slack-message-id }}
       run: ./slack-notifier-cli
