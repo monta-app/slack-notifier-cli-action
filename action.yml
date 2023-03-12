@@ -10,6 +10,12 @@ inputs:
   job-status:
     description: ""
     required: true
+  service-name:
+    description: "The name of your service (if you don't like the default)"
+    required: false
+  service-emoji:
+    description: "The emoji you want to use for your service!"
+    required: false
   slack-app-token:
     description: ""
     required: true
@@ -32,7 +38,7 @@ runs:
         fetch-depth: 0
     - name: Download changelog cli
       run: |
-        curl -L -o slack-notifier-cli https://github.com/monta-app/slack-notifier-cli/releases/download/v1.0.4/slack-notifier-cli
+        curl -L -o slack-notifier-cli https://github.com/monta-app/slack-notifier-cli/releases/download/v1.0.5/slack-notifier-cli
         chmod +x ./slack-notifier-cli
       shell: bash
     - name: Run slack notifier cli
@@ -41,6 +47,8 @@ runs:
         PUBLISH_SLACK_GITHUB_CONTEXT: ${{ inputs.github-context }}
         PUBLISH_SLACK_JOB_TYPE: ${{ inputs.job-type }}
         PUBLISH_SLACK_JOB_STATUS: ${{ inputs.job-status }}
+        PUBLISH_SLACK_SERVICE_NAME: ${{ inputs.service-name }}
+        PUBLISH_SLACK_SERVICE_EMOJI: ${{ inputs.service-emoji }}
         SLACK_APP_TOKEN: ${{ inputs.slack-app-token }}
         SLACK_CHANNEL_ID: ${{ inputs.slack-channel-id }}
         SLACK_MESSAGE_ID: ${{ inputs.slack-message-id }}
