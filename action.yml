@@ -38,7 +38,7 @@ runs:
         fetch-depth: 0
     - name: Download changelog cli
       run: |
-        curl -L -o slack-notifier-cli https://github.com/monta-app/slack-notifier-cli/releases/download/v1.0.6/slack-notifier-cli
+        curl -L -o slack-notifier-cli https://github.com/monta-app/slack-notifier-cli/releases/download/v1.0.7/slack-notifier-cli
         chmod +x ./slack-notifier-cli
       shell: bash
     - name: Run slack notifier cli
