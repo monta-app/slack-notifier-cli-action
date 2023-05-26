@@ -4,7 +4,7 @@ Github action for posting a message to Slack.
 
 This is used as part of our builds to post progress messages to Slack.
 
-Most project don't use this directly, but indirectly through the [github-workflows](https://github.com/monta-app/github-workflows)
+Most projects don't use this directly, but indirectly through the [github-workflows](https://github.com/monta-app/github-workflows)
 
 ## Example of Github workflow job
 
