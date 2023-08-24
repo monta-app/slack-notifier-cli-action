@@ -14,7 +14,6 @@ steps:
   uses: monta-app/slack-notifier-cli-action@main
   id: publish-slack
   with:
-    github-context: ${{ toJson(github) }}
     job-type: <job-type>
     job-status: <job-status>
     service-name: <service-name>

@@ -1,9 +1,6 @@
 name: "Slack Notifier CLI"
 description: "Create a change log based of git commit history"
 inputs:
-  github-context:
-    description: ""
-    required: true
   job-type:
     description: ""
     required: true
@@ -38,13 +35,12 @@ runs:
         fetch-depth: 0
     - name: Download changelog cli
       run: |
-        curl -L -o slack-notifier-cli https://github.com/monta-app/slack-notifier-cli/releases/download/v1.1.3/slack-notifier-cli
+        curl -L -o slack-notifier-cli https://github.com/monta-app/slack-notifier-cli/releases/download/v1.2.0/slack-notifier-cli
         chmod +x ./slack-notifier-cli
       shell: bash
     - name: Run slack notifier cli
       id: slack-notifier
       env:
-        PUBLISH_SLACK_GITHUB_CONTEXT: ${{ inputs.github-context }}
         PUBLISH_SLACK_JOB_TYPE: ${{ inputs.job-type }}
         PUBLISH_SLACK_JOB_STATUS: ${{ inputs.job-status }}
         PUBLISH_SLACK_SERVICE_NAME: ${{ inputs.service-name }}
