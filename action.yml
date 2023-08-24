@@ -1,9 +1,6 @@
 name: "Slack Notifier CLI"
 description: "Create a change log based of git commit history"
 inputs:
-  github-context:
-    description: ""
-    required: true
   job-type:
     description: ""
     required: true
@@ -44,7 +41,6 @@ runs:
     - name: Run slack notifier cli
       id: slack-notifier
       env:
-        PUBLISH_SLACK_GITHUB_CONTEXT: ${{ inputs.github-context }}
         PUBLISH_SLACK_JOB_TYPE: ${{ inputs.job-type }}
         PUBLISH_SLACK_JOB_STATUS: ${{ inputs.job-status }}
         PUBLISH_SLACK_SERVICE_NAME: ${{ inputs.service-name }}
