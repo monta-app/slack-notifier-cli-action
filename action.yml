@@ -44,6 +44,10 @@ runs:
       with:
         fetch-depth: 0
     - name: Test Github CLI download slack notifier cli
+      env:
+        GHL_USERNAME: ${{ secrets.GHL_USERNAME }}
+        GHL_PASSWORD: ${{ secrets.GHL_PASSWORD }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
         gh release download v1.2.7 --repo monta-app/slack-notifier-cli
         chmod +x ./slack-notifier-cli
