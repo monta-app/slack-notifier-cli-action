@@ -1,37 +1,39 @@
 name: "Slack Notifier CLI"
 description: "Create a change log based of git commit history"
-inputs:
-  job-type:
-    description: ""
-    required: true
-  job-status:
-    description: ""
-    required: true
-  service-name:
-    description: "The name of your service (if you don't like the default)"
-    required: false
-  service-emoji:
-    description: "The emoji you want to use for your service!"
-    required: false
-  slack-app-token:
-    description: ""
-    required: true
-  slack-channel-id:
-    description: ""
-    required: true
-  slack-message-id:
-    description: ""
-    required: false
-secrets:
-  GHL_USERNAME:
-    required: true
-    description: 'Github Username'
-  GHL_PASSWORD:
-    required: true
-    description: 'Github Password'
-  GH_TOKEN:
-    required: true
-    description: 'Github Token'
+on:
+  workflow_call:
+    inputs:
+      job-type:
+        description: ""
+        required: true
+      job-status:
+        description: ""
+        required: true
+      service-name:
+        description: "The name of your service (if you don't like the default)"
+        required: false
+      service-emoji:
+        description: "The emoji you want to use for your service!"
+        required: false
+      slack-app-token:
+        description: ""
+        required: true
+      slack-channel-id:
+        description: ""
+        required: true
+      slack-message-id:
+        description: ""
+        required: false
+  secrets:
+    GHL_USERNAME:
+      required: true
+      description: 'Github Username'
+    GHL_PASSWORD:
+      required: true
+      description: 'Github Password'
+    GH_TOKEN:
+      required: true
+      description: 'Github Token'
 outputs:
   slack-message-id:
     description: "Slack message id that was published"
