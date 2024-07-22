@@ -24,16 +24,16 @@ on:
       slack-message-id:
         description: ""
         required: false
-  secrets:
-    GHL_USERNAME:
-      required: true
-      description: 'Github Username'
-    GHL_PASSWORD:
-      required: true
-      description: 'Github Password'
-    GH_TOKEN:
-      required: true
-      description: 'Github Token'
+    secrets:
+      GHL_USERNAME:
+        required: true
+        description: 'Github Username'
+      GHL_PASSWORD:
+        required: true
+        description: 'Github Password'
+      GH_TOKEN:
+        required: true
+        description: 'Github Token'
 outputs:
   slack-message-id:
     description: "Slack message id that was published"
