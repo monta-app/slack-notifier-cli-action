@@ -22,6 +22,13 @@ inputs:
   slack-message-id:
     description: ""
     required: false
+secrets:
+  GHL_USERNAME:
+    required: true
+    description: 'Github Username'
+  GHL_PASSWORD:
+    required: true
+    description: 'Github Password'
 outputs:
   slack-message-id:
     description: "Slack message id that was published"
@@ -33,9 +40,9 @@ runs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
-    - name: Download slack notifier cli
+    - name: Test Github CLI download slack notifier cli
       run: |
-        curl -L -o slack-notifier-cli https://github.com/monta-app/slack-notifier-cli/releases/download/v1.2.7/slack-notifier-cli
+        gh release download v1.2.7 --repo monta-app/slack-notifier-cli
         chmod +x ./slack-notifier-cli
       shell: bash
     - name: Run slack notifier cli
