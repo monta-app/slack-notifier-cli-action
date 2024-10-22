@@ -31,8 +31,6 @@ runs:
   steps:
     - name: Checkout
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
     - name: Download changelog cli
       run: |
         curl -L -o slack-notifier-cli https://github.com/monta-app/slack-notifier-cli/releases/download/v1.2.3/slack-notifier-cli
