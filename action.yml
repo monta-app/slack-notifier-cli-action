@@ -1,11 +1,11 @@
 name: "Slack Notifier CLI"
-description: "Create a change log based of git commit history"
+description: "Send or update a slack notification"
 inputs:
   job-type:
-    description: ""
+    description: "one of: test, build, deploy, publishDocs"
     required: true
   job-status:
-    description: ""
+    description: "one of: progress, success, failure, cancelled, unknown"
     required: true
   service-name:
     description: "The name of your service (if you don't like the default)"
@@ -20,7 +20,7 @@ inputs:
     description: ""
     required: true
   slack-message-id:
-    description: ""
+    description: "The id of a previously published message to be updated"
     required: false
 outputs:
   slack-message-id:
@@ -31,9 +31,7 @@ runs:
   steps:
     - name: Checkout
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-    - name: Download changelog cli
+    - name: Download slack-notifier-cli
       run: |
         curl -L -o slack-notifier-cli https://github.com/monta-app/slack-notifier-cli/releases/download/v1.2.3/slack-notifier-cli
         chmod +x ./slack-notifier-cli
