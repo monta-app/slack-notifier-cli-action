@@ -33,7 +33,19 @@ runs:
       uses: actions/checkout@v4
     - name: Download slack-notifier-cli
       run: |
-        curl -L -o slack-notifier-cli https://github.com/monta-app/slack-notifier-cli/releases/download/v1.2.3/slack-notifier-cli
+        # Detect architecture
+        ARCH=$(uname -m)
+        if [ "$ARCH" = "x86_64" ]; then
+          BINARY_NAME="slack-notifier-cli-X64"
+        elif [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then
+          BINARY_NAME="slack-notifier-cli-ARM64"
+        else
+          echo "Unsupported architecture: $ARCH"
+          exit 1
+        fi
+
+        echo "Downloading $BINARY_NAME for architecture $ARCH"
+        curl -L -o slack-notifier-cli https://github.com/monta-app/slack-notifier-cli/releases/download/v1.3.0/$BINARY_NAME
         chmod +x ./slack-notifier-cli
       shell: bash
     - name: Run slack notifier cli
