@@ -23,3 +23,7 @@ steps:
 ```
 
 See further documentation of options in [action.yml](./action.yml)
+
+## Graceful failure
+
+By default (`fail-on-error: 'false'`), the action will **not** fail your workflow if the Slack notification cannot be delivered (e.g. the target channel has been archived or deleted). Instead it emits a warning annotation and continues. If you need strict failure behaviour, set `fail-on-error: 'true'`.
