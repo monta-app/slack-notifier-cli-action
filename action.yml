@@ -22,10 +22,17 @@ inputs:
   slack-message-id:
     description: "The id of a previously published message to be updated"
     required: false
+  fail-on-error:
+    description: "Whether to fail the workflow step if the Slack notification fails (e.g. channel not found). Set to 'false' to emit a warning instead."
+    required: false
+    default: "false"
 outputs:
   slack-message-id:
     description: "Slack message id that was published"
     value: ${{ steps.slack-notifier.outputs.SLACK_MESSAGE_ID }}
+  slack-notification-result:
+    description: "Result of the notification attempt: 'success' or 'failed'"
+    value: ${{ steps.slack-notifier.outputs.SLACK_NOTIFICATION_RESULT }}
 runs:
   using: "composite"
   steps:
@@ -58,5 +65,17 @@ runs:
         SLACK_APP_TOKEN: ${{ inputs.slack-app-token }}
         SLACK_CHANNEL_ID: ${{ inputs.slack-channel-id }}
         SLACK_MESSAGE_ID: ${{ inputs.slack-message-id }}
-      run: ./slack-notifier-cli
+      run: |
+        if ./slack-notifier-cli; then
+          echo "SLACK_NOTIFICATION_RESULT=success" >> "$GITHUB_OUTPUT"
+        else
+          EXIT_CODE=$?
+          echo "SLACK_NOTIFICATION_RESULT=failed" >> "$GITHUB_OUTPUT"
+          if [ "${{ inputs.fail-on-error }}" = "true" ]; then
+            echo "::error::Slack notification failed (exit code $EXIT_CODE)"
+            exit $EXIT_CODE
+          else
+            echo "::warning::Slack notification failed (exit code $EXIT_CODE) — continuing because fail-on-error is disabled"
+          fi
+        fi
       shell: bash
